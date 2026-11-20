@@ -21,7 +21,7 @@ def collect():
     diagrams = []
     for page in sorted(SITE.rglob("*.html")):
         text = page.read_text(encoding="utf-8")
-        for match in re.finditer(r'<pre class="mermaid"><code>(.*?)</code></pre>', text, re.S):
+        for match in re.finditer(r'<pre class="mermaid"[^>]*><code>(.*?)</code></pre>', text, re.S):
             diagrams.append((page.relative_to(SITE).as_posix(), html.unescape(match.group(1))))
     return diagrams
 

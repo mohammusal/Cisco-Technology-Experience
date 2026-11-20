@@ -74,6 +74,7 @@ exclude_docs: |
 
 hooks:
   - hooks/glossary.py
+  - hooks/search_exclude.py
 
 plugins:
   - search

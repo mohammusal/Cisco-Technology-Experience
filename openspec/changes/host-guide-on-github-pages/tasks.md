@@ -23,9 +23,9 @@
 
 ## 5. First publish and checks
 
-- [ ] 5.1 Check the remote with `git ls-remote origin`; if it has commits, fetch and rebase onto them. Then commit and `git push -u origin main` with the owner's credentials; verify the commit is visible on GitHub
-- [ ] 5.2 Watch the first run in the **Actions** tab; verify both jobs succeed and the `github-pages` environment shows the deployed address
-- [ ] 5.3 Open `https://mohammusal.github.io/Cisco-Technology-Experience/` on a desktop browser and a phone; verify the home page, Lab 3 opened directly from its own link, a screenshot, a Mermaid diagram and search all work, and the network inspector shows no requests to other sites
+- [x] 5.1 Check the remote with `git ls-remote origin`; if it has commits, fetch and rebase onto them. Then commit and `git push -u origin main` with the owner's credentials; verify the commit is visible on GitHub
+- [x] 5.2 Watch the first run in the **Actions** tab; verify both jobs succeed and the `github-pages` environment shows the deployed address
+- [x] 5.3 Open `https://mohammusal.github.io/Cisco-Technology-Experience/` on a desktop browser and a phone; verify the home page, Lab 3 opened directly from its own link, a screenshot, a Mermaid diagram and search all work, and the network inspector shows no requests to other sites
 - [ ] 5.4 Push a deliberately broken internal link on a test commit; verify the workflow fails, the live site is unchanged, then revert the commit and verify the next run publishes again
 
 ## Workflow follow-up
