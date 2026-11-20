@@ -1,0 +1,156 @@
+/* Editorial callouts: restrained left accent, soft surface, clear icon. */
+
+.md-typeset .admonition,
+.md-typeset details {
+  border: 1px solid var(--cx-border);
+  border-left-width: 3px;
+  border-radius: 6px;
+  box-shadow: none;
+  font-size: .78rem;
+}
+
+.md-typeset .admonition-title,
+.md-typeset details > summary {
+  font-weight: 600;
+  border-bottom: 1px solid transparent;
+}
+
+/* Predict: deep indigo */
+.md-typeset .admonition.predict,
+.md-typeset details.predict {
+  border-left-color: var(--cx-indigo);
+}
+.md-typeset .predict > .admonition-title,
+.md-typeset .predict > summary {
+  background-color: color-mix(in srgb, var(--cx-indigo) 7%, transparent);
+}
+.md-typeset .predict > .admonition-title::before,
+.md-typeset .predict > summary::before {
+  background-color: var(--cx-indigo);
+  -webkit-mask-image: var(--md-admonition-icon--predict);
+          mask-image: var(--md-admonition-icon--predict);
+}
+.md-typeset .predict > summary::after {
+  color: var(--cx-indigo);
+}
+
+/* Checkpoint: forest green */
+.md-typeset .admonition.checkpoint,
+.md-typeset details.checkpoint {
+  border-left-color: var(--cx-green);
+}
+.md-typeset .checkpoint > .admonition-title,
+.md-typeset .checkpoint > summary {
+  background-color: color-mix(in srgb, var(--cx-green) 7%, transparent);
+}
+.md-typeset .checkpoint > .admonition-title::before,
+.md-typeset .checkpoint > summary::before {
+  background-color: var(--cx-green);
+  -webkit-mask-image: var(--md-admonition-icon--checkpoint);
+          mask-image: var(--md-admonition-icon--checkpoint);
+}
+
+/* Error decoder: muted crimson */
+.md-typeset .admonition.error,
+.md-typeset details.error {
+  border-left-color: var(--cx-red);
+}
+.md-typeset .error > .admonition-title,
+.md-typeset .error > summary {
+  background-color: color-mix(in srgb, var(--cx-red) 7%, transparent);
+}
+.md-typeset .error > .admonition-title::before,
+.md-typeset .error > summary::before {
+  background-color: var(--cx-red);
+  -webkit-mask-image: var(--md-admonition-icon--error);
+          mask-image: var(--md-admonition-icon--error);
+}
+.md-typeset .error > summary::after {
+  color: var(--cx-red);
+}
+.md-typeset .error dl {
+  margin: .4rem 0;
+}
+.md-typeset .error dt {
+  font-weight: 600;
+  color: var(--cx-red);
+}
+
+/* Analogy: warm ochre */
+.md-typeset .admonition.analogy,
+.md-typeset details.analogy {
+  border-left-color: var(--cx-amber);
+}
+.md-typeset .analogy > .admonition-title,
+.md-typeset .analogy > summary {
+  background-color: color-mix(in srgb, var(--cx-amber) 7%, transparent);
+}
+.md-typeset .analogy > .admonition-title::before,
+.md-typeset .analogy > summary::before {
+  background-color: var(--cx-amber);
+  -webkit-mask-image: var(--md-admonition-icon--analogy);
+          mask-image: var(--md-admonition-icon--analogy);
+}
+
+/* VS Code tip */
+.md-typeset .admonition.vscode,
+.md-typeset details.vscode {
+  border-left-color: var(--cx-vscode);
+}
+.md-typeset .vscode > .admonition-title,
+.md-typeset .vscode > summary {
+  background-color: color-mix(in srgb, var(--cx-vscode) 7%, transparent);
+}
+.md-typeset .vscode > .admonition-title::before,
+.md-typeset .vscode > summary::before {
+  background-color: var(--cx-vscode);
+  -webkit-mask-image: var(--md-admonition-icon--vscode);
+          mask-image: var(--md-admonition-icon--vscode);
+}
+
+/* Instructor notes */
+.md-typeset .admonition.instructor,
+.md-typeset details.instructor {
+  border-left-color: var(--cx-muted);
+}
+.md-typeset .instructor > .admonition-title,
+.md-typeset .instructor > summary {
+  background-color: var(--cx-surface);
+}
+.md-typeset .instructor > .admonition-title::before,
+.md-typeset .instructor > summary::before {
+  background-color: var(--cx-muted);
+  -webkit-mask-image: var(--md-admonition-icon--instructor);
+          mask-image: var(--md-admonition-icon--instructor);
+}
+
+/* Milestone / Badge earned: understated editorial card, no loud gradient. */
+.md-typeset .admonition.badge {
+  border: 1px solid color-mix(in srgb, var(--cx-blue) 30%, var(--cx-border));
+  border-left: 4px solid var(--cx-blue);
+  border-radius: 6px;
+  background: var(--cx-surface);
+  color: var(--md-default-fg-color);
+  text-align: left;
+  box-shadow: none;
+}
+.md-typeset .badge > .admonition-title {
+  background: color-mix(in srgb, var(--cx-blue) 8%, transparent);
+  color: var(--cx-blue-deep);
+  font-size: .74rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.md-typeset .badge > .admonition-title::before {
+  background-color: var(--cx-amber);
+  -webkit-mask-image: var(--md-admonition-icon--badge);
+          mask-image: var(--md-admonition-icon--badge);
+}
+.md-typeset .badge p {
+  color: var(--md-default-fg-color);
+}
+.md-typeset .badge strong {
+  color: var(--md-default-fg-color);
+  font-size: .95rem;
+}

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if page.meta and page.meta.lab is defined %}
+    {% include "partials/progress-map.html" %}
+  {% endif %}
+  {{ super() }}
+{% endblock %}

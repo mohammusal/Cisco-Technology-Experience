@@ -1,0 +1,24 @@
+{#- Lab 0 to Lab 7 stepper. The current lab comes from page front matter: lab: N -#}
+{%- set labs = [
+  ("day1/lab0-setup.html", "Setup"),
+  ("day1/lab1-variables.html", "Variables"),
+  ("day1/lab2-decisions.html", "Decisions"),
+  ("day1/lab3-loops.html", "Loops"),
+  ("day1/lab4-lists-strings.html", "Lists"),
+  ("day1/lab5-collections.html", "Dictionaries"),
+  ("day1/lab6-functions.html", "Functions"),
+  ("day1/lab7-quiz-game.html", "Quiz Game"),
+] -%}
+{%- set current = page.meta.lab | int -%}
+<nav class="progress-map" aria-label="Workshop lab progress">
+  {%- for target, label in labs %}
+    {%- set n = loop.index0 %}
+    {%- if n < current %}{% set state = "pm-done" %}{% set says = "done" %}
+    {%- elif n == current %}{% set state = "pm-current" %}{% set says = "you are here" %}
+    {%- else %}{% set state = "pm-next" %}{% set says = "coming up" %}{% endif %}
+    <a class="{{ state }}" href="{{ target | url }}" title="Lab {{ n }} - {{ label }} ({{ says }})"
+       {%- if n == current %} aria-current="step"{% endif %}>
+      <span class="pm-num">Lab {{ n }}</span>{{ label }}
+    </a>
+  {%- endfor %}
+</nav>

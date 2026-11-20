@@ -1,0 +1,10 @@
+.venv/
+site/
+dist/
+.cache/
+__pycache__/
+*.pyc
+code/**/scores.txt
+code/scores.txt
+code/**/notes.txt
+code/**/temperatures.txt

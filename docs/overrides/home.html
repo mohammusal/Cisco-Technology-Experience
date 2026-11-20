@@ -1,0 +1,354 @@
+{% extends "main.html" %}
+
+{% block tabs %}
+{{ super() }}
+<style>
+  .md-main { display: none; }
+  .md-footer { display: none; }
+
+  .cx-home {
+    min-height: calc(100svh - 4.8rem);
+    background: var(--md-default-bg-color);
+    color: var(--md-default-fg-color);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Upper band: Cisco midnight navy, crisp and grounded (no neon glow) */
+  .cx-band {
+    background: var(--cx-navy);
+    color: #ffffff;
+    padding: 3.1rem 1.4rem 3.3rem;
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+  }
+
+  .cx-wrap {
+    max-width: 64rem;
+    margin: 0 auto;
+  }
+
+  .cx-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: 2.6rem;
+    align-items: center;
+  }
+
+  .cx-kicker {
+    display: inline-block;
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--cx-cyan);
+    margin-bottom: .75rem;
+  }
+
+  .cx-hero h1 {
+    margin: 0 0 .85rem;
+    font-size: 2.45rem;
+    font-weight: 700;
+    letter-spacing: -.03em;
+    line-height: 1.12;
+    color: #ffffff;
+  }
+
+  .cx-lead {
+    margin: 0 0 1.65rem;
+    font-size: .96rem;
+    line-height: 1.65;
+    color: #c2d1df;
+    max-width: 31rem;
+  }
+
+  .cx-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .7rem;
+  }
+
+  .cx-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: .62rem 1.25rem;
+    border-radius: 6px;
+    font-size: .82rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+  }
+
+  .cx-btn--primary {
+    background: #ffffff;
+    color: var(--cx-navy);
+    border: 1px solid #ffffff;
+  }
+
+  .cx-btn--primary:hover,
+  .cx-btn--primary:focus {
+    background: #e6f2fa;
+    border-color: #e6f2fa;
+    color: var(--cx-navy);
+  }
+
+  .cx-btn--secondary {
+    background: transparent;
+    color: #e6eef5;
+    border: 1px solid rgba(255, 255, 255, .28);
+  }
+
+  .cx-btn--secondary:hover,
+  .cx-btn--secondary:focus {
+    border-color: var(--cx-cyan);
+    color: #ffffff;
+    background: rgba(255, 255, 255, .06);
+  }
+
+  /* VS Code Dark Modern editor preview */
+  .cx-editor {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #1f1f1f;
+    border: 1px solid rgba(255, 255, 255, .12);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, .35);
+    text-align: left;
+  }
+
+  .cx-editor__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 32px;
+    background: #181818;
+    border-bottom: 1px solid #2b2b2b;
+    padding-right: .8rem;
+  }
+
+  .cx-editor__tab {
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    padding: 0 .9rem;
+    background: #1f1f1f;
+    border-top: 2px solid #0078d4;
+    border-right: 1px solid #2b2b2b;
+    color: #e5e5e5;
+    font-family: var(--md-code-font-family);
+    font-size: .7rem;
+  }
+
+  .cx-editor__meta {
+    font-family: var(--md-code-font-family);
+    font-size: .64rem;
+    color: #8c8c8c;
+  }
+
+  .cx-editor__code {
+    margin: 0;
+    padding: 1rem 1.1rem 1.15rem;
+    font-family: var(--md-code-font-family);
+    font-size: .76rem;
+    line-height: 1.72;
+    color: #d4d4d4;
+    overflow-x: auto;
+  }
+
+  .cx-line {
+    display: block;
+    width: 0;
+    overflow: hidden;
+    white-space: pre;
+    animation: cx-type var(--t, 1s) steps(var(--n, 30), end) var(--d, 0s) forwards;
+  }
+
+  .cx-ln {
+    display: inline-block;
+    width: 1.8rem;
+    color: #6e7681;
+    user-select: none;
+  }
+
+  .cx-kw  { color: #569cd6; }
+  .cx-cls { color: #4ec9b0; }
+  .cx-str { color: #ce9178; }
+  .cx-cm  { color: #6a9955; }
+  .cx-fn  { color: #dcdcaa; }
+
+  .cx-cursor {
+    display: inline-block;
+    width: 2px;
+    height: .95rem;
+    vertical-align: text-bottom;
+    background: #aeafad;
+    animation: cx-blink 1.1s step-end infinite;
+  }
+
+  @keyframes cx-type  { to { width: calc(var(--n) * 1ch + 1.8rem); } }
+  @keyframes cx-blink { 50% { opacity: 0; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cx-line { width: auto; animation: none; }
+    .cx-cursor { animation: none; }
+  }
+
+  /* Lower band: clean editorial paper surface */
+  .cx-lower {
+    flex: 1;
+    padding: 2.3rem 1.4rem 3rem;
+  }
+
+  .cx-cards {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .cx-card {
+    display: block;
+    padding: 1.15rem 1.15rem 1.2rem;
+    border: 1px solid var(--cx-border);
+    border-radius: 8px;
+    background: var(--md-default-bg-color);
+    text-decoration: none;
+    color: var(--md-default-fg-color);
+    transition: border-color .15s ease, background-color .15s ease;
+  }
+
+  .cx-card:hover,
+  .cx-card:focus {
+    border-color: var(--cx-blue);
+    background: var(--cx-surface);
+  }
+
+  .cx-card__label {
+    display: block;
+    font-size: .66rem;
+    font-weight: 600;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--cx-blue);
+    margin-bottom: .35rem;
+  }
+
+  .cx-card strong {
+    display: block;
+    font-size: .92rem;
+    font-weight: 600;
+    color: var(--md-default-fg-color);
+    margin-bottom: .3rem;
+  }
+
+  .cx-card p {
+    margin: 0;
+    font-size: .76rem;
+    line-height: 1.55;
+    color: var(--cx-muted);
+  }
+
+  .cx-note {
+    margin: 1.6rem 0 0;
+    padding-left: .85rem;
+    border-left: 2px solid var(--cx-border);
+    font-size: .78rem;
+    line-height: 1.55;
+    color: var(--cx-muted);
+  }
+
+  @media screen and (max-width: 58em) {
+    .cx-hero {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .cx-cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (max-width: 34em) {
+    .cx-band {
+      padding: 2.2rem 1rem 2.4rem;
+    }
+    .cx-hero h1 {
+      font-size: 1.85rem;
+    }
+    .cx-editor__code {
+      font-size: .68rem;
+    }
+    .cx-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div class="cx-home">
+  <section class="cx-band">
+    <div class="cx-wrap">
+      <div class="cx-hero">
+        <div>
+          <span class="cx-kicker">Cisco Technology Experience &middot; Krak&oacute;w {{ config.extra.workshop_year }}</span>
+          <h1>Python Workshop</h1>
+          <p class="cx-lead">
+            A hands-on introduction to Python in Visual Studio Code. Zero programming experience
+            needed&mdash;you write your first program and build a working Quiz Game step by step.
+          </p>
+          <div class="cx-actions">
+            <a class="cx-btn cx-btn--primary" href="{{ 'day1/lab0-setup.html' | url }}">Start with Lab 0</a>
+            <a class="cx-btn cx-btn--secondary" href="{{ 'day1/before-you-come.html' | url }}">Before you come</a>
+          </div>
+        </div>
+
+        <div class="cx-editor" role="img" aria-label="A VS Code window showing the workshop as Python code">
+          <div class="cx-editor__bar">
+            <span class="cx-editor__tab">
+              <svg width="14" height="14" viewBox="0 0 110 110" aria-hidden="true">
+                <path fill="#387eb8" d="M54.9 10c-22.9 0-21.5 9.9-21.5 9.9l.03 10.3h21.9v3.1H24.7S10 31.6 10 54.8s12.8 22.4 12.8 22.4h7.6V66.4s-.4-12.8 12.6-12.8h21.7s12.2.2 12.2-11.8V21.9S78.8 10 54.9 10zm-12.1 6.9a3.9 3.9 0 1 1 0 7.9 3.9 3.9 0 0 1 0-7.9z"/>
+                <path fill="#ffd343" d="M55.5 100c22.9 0 21.5-9.9 21.5-9.9l-.03-10.3H55.1v-3.1h30.6S100.4 78.4 100.4 55.2s-12.8-22.4-12.8-22.4H80v10.8s.4 12.8-12.6 12.8H45.7s-12.2-.2-12.2 11.8v19.9S31.6 100 55.5 100zm12.1-6.9a3.9 3.9 0 1 1 0-7.9 3.9 3.9 0 0 1 0 7.9z"/>
+              </svg>
+              workshop.py
+            </span>
+            <span class="cx-editor__meta">Python 3</span>
+          </div>
+          <pre class="cx-editor__code"><span class="cx-line" style="--n:39;--t:1s;--d:.15s"><span class="cx-ln">1</span><span class="cx-kw">class</span> <span class="cx-cls">BeginnerLevelPythonProgramming</span>:</span><span class="cx-line" style="--n:24;--t:.65s;--d:1.25s"><span class="cx-ln">2</span>    city = <span class="cx-str">"Krak&oacute;w"</span></span><span class="cx-line" style="--n:36;--t:.9s;--d:2s"><span class="cx-ln">3</span>    experience_needed = <span class="cx-kw">None</span></span><span class="cx-line" style="--n:44;--t:1.05s;--d:3s"><span class="cx-ln">4</span>    goal = <span class="cx-str">"build your own Quiz Game"</span></span><span class="cx-line" style="--n:1;--t:.1s;--d:4.15s"><span class="cx-ln">5</span> </span><span class="cx-line" style="--n:26;--t:.7s;--d:4.3s"><span class="cx-ln">6</span>    <span class="cx-kw">def</span> <span class="cx-fn">start</span>(self):</span><span class="cx-line" style="--n:46;--t:1.1s;--d:5.1s"><span class="cx-ln">7</span>        <span class="cx-fn">print</span>(<span class="cx-str">"Hello World!"</span>)  <span class="cx-cm"># your turn</span></span><span class="cx-line" style="--n:2;--t:.1s;--d:6.3s"><span class="cx-ln">8</span><span class="cx-cursor"></span></span></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cx-lower">
+    <div class="cx-wrap">
+      <div class="cx-cards">
+        <a class="cx-card" href="{{ 'day1/before-you-come.html' | url }}">
+          <span class="cx-card__label">Prepare</span>
+          <strong>Before you come</strong>
+          <p>Install Python, VS Code and the Python extension on your laptop before the session.</p>
+        </a>
+        <a class="cx-card" href="{{ 'day1/overview.html' | url }}">
+          <span class="cx-card__label">Overview</span>
+          <strong>Workshop roadmap</strong>
+          <p>See which slides match each lab and how your Quiz Game grows from start to finish.</p>
+        </a>
+        <a class="cx-card" href="{{ 'day1/cheat-sheet.html' | url }}">
+          <span class="cx-card__label">Reference</span>
+          <strong>One-page cheat sheet</strong>
+          <p>Every Python command and common error from the workshop on a single printable page.</p>
+        </a>
+        <a class="cx-card" href="{{ 'help/troubleshooting.html' | url }}">
+          <span class="cx-card__label">Support</span>
+          <strong>Troubleshooting &amp; glossary</strong>
+          <p>Quick fixes for Python PATH and VS Code setup, plus plain-English term definitions.</p>
+        </a>
+      </div>
+
+      <p class="cx-note">
+        Every lab ends with a checkpoint file in <code>code/solutions/</code>, so if anything breaks
+        you can copy it over and carry on straight away.
+      </p>
+    </div>
+  </section>
+</div>
+{% endblock %}
+
+{% block content %}{% endblock %}
+{% block footer %}{% endblock %}

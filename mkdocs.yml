@@ -1,0 +1,143 @@
+---
+site_name: "Cisco Technology Experience - Python Workshop"
+site_url: https://mohammusal.github.io/Cisco-Technology-Experience/
+site_description: "Python Workshop for high school students, Krakow 2026"
+site_author: Esra'a Barhoumeh and Mo Musallam
+copyright: Copyright &copy; 2026 Cisco - Cisco Technology Experience, Krakow
+use_directory_urls: false
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  font: false
+  language: en
+  logo: assets/cisco_logo.png
+  favicon: assets/cisco_logo.png
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.footer
+    - navigation.path
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - content.tooltips
+    - toc.follow
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  icon:
+    admonition:
+      predict: material/crystal-ball
+      checkpoint: material/flag-checkered
+      error: material/bug-outline
+      analogy: material/lightbulb-on-outline
+      badge: material/medal-outline
+      vscode: material/microsoft-visual-studio-code
+      instructor: material/human-male-board
+
+extra:
+  generator: false
+  # Local copy: otherwise the offline plugin loads this shim from unpkg.com.
+  polyfills:
+    - assets/javascripts/iframe-worker-shim.js
+  workshop_city: Krakow
+  workshop_year: 2026
+
+# Local copy: otherwise Material loads Mermaid from unpkg.com.
+extra_javascript:
+  - assets/javascripts/mermaid.min.js
+
+extra_css:
+  - stylesheets/fonts.css
+  - stylesheets/extra.css
+  - stylesheets/callouts.css
+  - stylesheets/print.css
+
+exclude_docs: |
+  includes/
+
+hooks:
+  - hooks/glossary.py
+
+plugins:
+  - search
+  - offline
+  - glightbox:
+      touchNavigation: true
+      loop: false
+      effect: fade
+      width: 100%
+      height: auto
+      zoomable: true
+      draggable: false
+      auto_caption: false
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: false
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.snippets:
+      base_path:
+        - docs
+        - .
+      auto_append:
+        - includes/abbreviations.md
+      check_paths: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+
+nav:
+  - Home: index.md
+  - Python Basics:
+      - Workshop roadmap: day1/overview.md
+      - Before you come: day1/before-you-come.md
+      - "Lab 0 - Setup check": day1/lab0-setup.md
+      - "Lab 1 - Variables": day1/lab1-variables.md
+      - "Lab 2 - Decisions": day1/lab2-decisions.md
+      - "Lab 3 - Loops": day1/lab3-loops.md
+      - "Lab 4 - Lists and strings": day1/lab4-lists-strings.md
+      - "Lab 5 - Tuples, dictionaries, sets": day1/lab5-collections.md
+      - "Lab 6 - Functions and errors": day1/lab6-functions.md
+      - "Lab 7 - Quiz Game project": day1/lab7-quiz-game.md
+      - Cheat sheet: day1/cheat-sheet.md
+  - Help:
+      - Troubleshooting: help/troubleshooting.md
+      - Glossary: help/glossary.md
