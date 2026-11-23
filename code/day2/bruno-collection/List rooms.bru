@@ -1,0 +1,19 @@
+meta {
+  name: List rooms
+  type: http
+  seq: 2
+}
+
+get {
+  url: https://webexapis.com/v1/rooms?max=5
+  body: none
+  auth: bearer
+}
+
+params:query {
+  max: 5
+}
+
+auth:bearer {
+  token: {{token}}
+}

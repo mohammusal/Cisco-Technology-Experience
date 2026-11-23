@@ -44,3 +44,14 @@
 *[exception]: An error that happens while the program runs. You can catch it with try and except.
 *[exceptions]: Errors that happen while the program runs. You can catch them with try and except.
 *[module]: A Python file with ready-made code you can use, for example random or time. You load it with import.
+*[API]: A menu of requests a service accepts, for example "create a room" or "send a message".
+*[REST]: A style of API that uses HTTP methods such as GET, POST, PUT and DELETE on URLs.
+*[JSON]: A text format for data using braces, brackets and quoted keys. Webex answers in JSON.
+*[token]: A secret string that proves who the program is. Keep it in token.txt, never in the script.
+*[SDK]: A library that wraps an API in Python functions, for example webexteamssdk.
+*[bot]: A Webex account meant for a program, with its own email and its own token.
+*[webhook]: An HTTP POST that a service sends to your URL when something happens, for example a new message.
+*[Flask]: A Python library that turns functions into a small web server.
+*[FastAPI]: A Python library for building APIs, often run with uvicorn.
+*[Bruno]: A free, offline-friendly REST API client with no login required, used to test API calls before coding them in Python.
+*[HTTP]: The protocol browsers, Bruno, and Python use to send requests (GET, POST, PUT, DELETE) and receive responses over the web.

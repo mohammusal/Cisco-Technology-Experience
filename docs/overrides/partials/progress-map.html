@@ -1,17 +1,32 @@
-{#- Lab 0 to Lab 7 stepper. The current lab comes from page front matter: lab: N -#}
-{%- set labs = [
-  ("day1/lab0-setup.html", "Setup"),
-  ("day1/lab1-variables.html", "Variables"),
-  ("day1/lab2-decisions.html", "Decisions"),
-  ("day1/lab3-loops.html", "Loops"),
-  ("day1/lab4-lists-strings.html", "Lists"),
-  ("day1/lab5-collections.html", "Dictionaries"),
-  ("day1/lab6-functions.html", "Functions"),
-  ("day1/lab7-quiz-game.html", "Quiz Game"),
-] -%}
+{#- Lab 0 to Lab 7 stepper. Front matter: lab: N and optional day: 2 -#}
+{%- set day = page.meta.day | default(1) | int -%}
+{%- set ns = namespace(labs=[]) -%}
+{%- if day == 2 %}
+  {%- set ns.labs = [
+    ("day2/lab0-setup.html", "Token"),
+    ("day2/lab1-rest.html", "REST"),
+    ("day2/lab2-room.html", "Room"),
+    ("day2/lab3-members.html", "Members"),
+    ("day2/lab4-messages.html", "Messages"),
+    ("day2/lab5-bots.html", "Bots"),
+    ("day2/lab6-flask.html", "Flask"),
+    ("day2/lab7-fastapi.html", "FastAPI"),
+  ] -%}
+{%- else %}
+  {%- set ns.labs = [
+    ("day1/lab0-setup.html", "Setup"),
+    ("day1/lab1-variables.html", "Variables"),
+    ("day1/lab2-decisions.html", "Decisions"),
+    ("day1/lab3-loops.html", "Loops"),
+    ("day1/lab4-lists-strings.html", "Lists"),
+    ("day1/lab5-collections.html", "Dictionaries"),
+    ("day1/lab6-functions.html", "Functions"),
+    ("day1/lab7-quiz-game.html", "Quiz Game"),
+  ] -%}
+{%- endif %}
 {%- set current = page.meta.lab | int -%}
 <nav class="progress-map" aria-label="Workshop lab progress">
-  {%- for target, label in labs %}
+  {%- for target, label in ns.labs %}
     {%- set n = loop.index0 %}
     {%- if n < current %}{% set state = "pm-done" %}{% set says = "done" %}
     {%- elif n == current %}{% set state = "pm-current" %}{% set says = "you are here" %}

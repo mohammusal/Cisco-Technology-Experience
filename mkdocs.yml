@@ -139,6 +139,17 @@ nav:
       - "Lab 6 - Functions and errors": day1/lab6-functions.md
       - "Lab 7 - Quiz Game project": day1/lab7-quiz-game.md
       - Cheat sheet: day1/cheat-sheet.md
+  - Webex APIs:
+      - Day 2 roadmap: day2/overview.md
+      - "Lab 0 - Token and setup": day2/lab0-setup.md
+      - "Lab 1 - REST and JSON": day2/lab1-rest.md
+      - "Lab 2 - Create a room": day2/lab2-room.md
+      - "Lab 3 - Add members": day2/lab3-members.md
+      - "Lab 4 - Edit and delete": day2/lab4-messages.md
+      - "Lab 5 - Bots": day2/lab5-bots.md
+      - "Lab 6 - Flask webhook": day2/lab6-flask.md
+      - "Lab 7 - FastAPI webhook": day2/lab7-fastapi.md
+      - Cheat sheet: day2/cheat-sheet.md
   - Help:
       - Troubleshooting: help/troubleshooting.md
       - Glossary: help/glossary.md

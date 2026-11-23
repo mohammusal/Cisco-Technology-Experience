@@ -1,0 +1,7 @@
+{
+  "resource": "messages",
+  "event": "created",
+  "data": {
+    "id": "PASTE_A_REAL_MESSAGE_ID_TO_TRY_LIVE"
+  }
+}

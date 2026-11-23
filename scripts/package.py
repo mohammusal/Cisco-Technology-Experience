@@ -26,7 +26,7 @@ BUNDLE = DIST / NAME
 
 # Files students create while working; they must not be in the handout.
 SKIP_IN_CODE = shutil.ignore_patterns(
-    ".venv", "__pycache__", "*.pyc", "scores.txt", "notes.txt", "temperatures.txt", ".DS_Store"
+    ".venv", "__pycache__", "*.pyc", "scores.txt", "notes.txt", "temperatures.txt", "token.txt", "bot_token.txt", ".DS_Store"
 )
 
 START_HERE = """<!DOCTYPE html>
@@ -68,13 +68,25 @@ def build_site():
         sys.exit("mkdocs build --strict failed: fix the warnings above first.")
 
 
+def _clear_dir(path: Path):
+    for child in list(path.iterdir()):
+        if child.is_dir() and not child.is_symlink():
+            _clear_dir(child)
+            try:
+                child.rmdir()
+            except PermissionError:
+                pass  # Windows may hold a handle on an open empty folder
+        else:
+            child.unlink()
+
+
 def assemble():
     print(f"2/4 Assembling {BUNDLE.relative_to(ROOT)} ...")
     if BUNDLE.exists():
-        shutil.rmtree(BUNDLE)
-    BUNDLE.mkdir(parents=True)
-    shutil.copytree(SITE, BUNDLE / "guide")
-    shutil.copytree(ROOT / "code", BUNDLE / "code", ignore=SKIP_IN_CODE)
+        _clear_dir(BUNDLE)
+    BUNDLE.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(SITE, BUNDLE / "guide", dirs_exist_ok=True)
+    shutil.copytree(ROOT / "code", BUNDLE / "code", ignore=SKIP_IN_CODE, dirs_exist_ok=True)
     (BUNDLE / "START_HERE.html").write_text(START_HERE, encoding="utf-8")
 
 

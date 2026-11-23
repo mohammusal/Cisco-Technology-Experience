@@ -6,6 +6,7 @@ Each file runs in a fresh temporary folder (so scores.txt starts empty), with
 scripted answers for input() and a fake clock for the 30-second rule.
 """
 
+import ast
 import builtins
 import contextlib
 import io
@@ -240,12 +241,97 @@ def check_question_bank():
     expect("solutions/questions.py matches code/questions.py", str(same), "True")
 
 
+def _run_day2_script(path, extra_files=None):
+    """Run a Day 2 script in a temp dir mirroring day2/ layout (without touching code/day2)."""
+    folder = Path(tempfile.mkdtemp(prefix="day2check_"))
+    temp_folders.append(folder)
+    day2 = CODE / "day2"
+    (folder / "config.py").write_text((day2 / "config.py").read_text(encoding="utf-8"), encoding="utf-8")
+    (folder / "rooms_sample.json").write_text(
+        (day2 / "rooms_sample.json").read_text(encoding="utf-8"), encoding="utf-8"
+    )
+    sub = folder / path.parent.name
+    sub.mkdir(exist_ok=True)
+    target = sub / path.name
+    target.write_text(path.read_text(encoding="utf-8"), encoding="utf-8")
+    for name, text in (extra_files or {}).items():
+        (folder / name).write_text(text, encoding="utf-8")
+
+    out = io.StringIO()
+    exit_msg = None
+    old_cwd = Path.cwd()
+    sys.modules.pop("config", None)
+    try:
+        os.chdir(folder)
+        with contextlib.redirect_stdout(out):
+            try:
+                runpy.run_path(str(target), run_name="__main__")
+            except SystemExit as exc:
+                exit_msg = str(exc)
+    finally:
+        os.chdir(old_cwd)
+        sys.modules.pop("config", None)
+        if str(folder) in sys.path:
+            sys.path.remove(str(folder))
+    return out.getvalue(), exit_msg, folder
+
+
+def check_day2():
+    day2 = CODE / "day2"
+    py_files = sorted(day2.rglob("*.py"))
+    expect("day2 has Python files", str(len(py_files) > 0), "True")
+
+    for path in py_files:
+        rel = path.relative_to(CODE).as_posix()
+        try:
+            ast.parse(path.read_text(encoding="utf-8"), filename=rel)
+        except SyntaxError as error:
+            failures.append(f"day2 syntax: {rel}")
+            print(f"FAIL  day2 syntax: {rel} -> {error}")
+            continue
+        print(f"ok    day2 syntax: {rel}")
+
+    for path in sorted(day2.glob("lab*/*.py")):
+        if path.name == "__init__.py":
+            continue
+        rel = path.relative_to(CODE).as_posix()
+        if "# TODO " not in path.read_text(encoding="utf-8"):
+            failures.append(f"day2 starter TODOs: {rel}")
+            print(f"FAIL  day2 starter TODOs: {rel}: no numbered TODO markers")
+        else:
+            print(f"ok    day2 starter TODOs: {rel}")
+
+    out, _, _ = _run_day2_script(day2 / "lab0/setup.py")
+    expect("day2 lab0 starter runs", out, "will never share a Webex token", "token.txt")
+
+    out, exit_msg, _ = _run_day2_script(day2 / "solutions/lab0_setup.py")
+    expect("day2 lab0 solution without token.txt", exit_msg or "", "No token.txt yet.")
+
+    out, exit_msg, _ = _run_day2_script(
+        day2 / "solutions/lab0_setup.py",
+        extra_files={"token.txt": "TEST_TOKEN_1234567890\n"},
+    )
+    expect("day2 lab0 solution with temp token.txt", out, "Token loaded. It starts with: TEST_T...", "Length: 21 characters")
+
+    out, _, _ = _run_day2_script(day2 / "lab1/get_rooms.py")
+    expect("day2 lab1 starter runs offline", out, "Keys in the response: ['items']")
+
+    out, _, folder = _run_day2_script(day2 / "solutions/lab1_get_rooms.py")
+    expect("day2 lab1 solution runs offline", out, "Keys in the response: ['items']", "Room Title:", "Wrote rooms.txt")
+    rooms_txt = (folder / "rooms.txt").read_text(encoding="utf-8").splitlines() if (folder / "rooms.txt").exists() else []
+    expect("day2 lab1 solution writes 5 rooms", str(len(rooms_txt)), "5")
+
+    out, _, _ = _run_day2_script(day2 / "solutions/lab1_exercise.py")
+    expect("day2 lab1 exercise runs offline", out, "Rooms in the file:", "Group rooms:", "Direct rooms:", "Locked rooms:")
+
+
 if __name__ == "__main__":
     print(f"Python {sys.version.split()[0]}")
     check_question_bank()
     check_starters()
     check_practice_solutions()
     check_quiz()
+    check_day2()
     for folder in temp_folders:
         shutil.rmtree(folder, ignore_errors=True)
     print()

@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Webex API Workshop",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

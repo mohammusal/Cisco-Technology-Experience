@@ -1,0 +1,59 @@
+{
+  "items": [
+    {
+      "id": "Y2lzY29zcGFyazovL3VzL1JPT00vcm9vbS0x",
+      "title": "Krakow CTE Group 1",
+      "type": "group",
+      "isLocked": false,
+      "lastActivity": "2026-11-20T10:15:00.000Z",
+      "creatorId": "Y2lzY29zcGFyazovL3VzL1BFT1BMRS9vbGE",
+      "created": "2026-11-20T09:00:00.000Z",
+      "isPublic": false,
+      "isReadOnly": false
+    },
+    {
+      "id": "Y2lzY29zcGFyazovL3VzL1JPT00vcm9vbS0y",
+      "title": "Python Workshop - Day 2",
+      "type": "group",
+      "isLocked": false,
+      "lastActivity": "2026-11-20T11:02:00.000Z",
+      "creatorId": "Y2lzY29zcGFyazovL3VzL1BFT1BMRS9qYW4",
+      "created": "2026-11-20T09:05:00.000Z",
+      "isPublic": false,
+      "isReadOnly": false
+    },
+    {
+      "id": "Y2lzY29zcGFyazovL3VzL1JPT00vcm9vbS0z",
+      "title": "Wawel Dragons",
+      "type": "group",
+      "isLocked": true,
+      "lastActivity": "2026-11-19T16:40:00.000Z",
+      "creatorId": "Y2lzY29zcGFyazovL3VzL1BFT1BMRS96b3NpYQ",
+      "created": "2026-11-19T08:30:00.000Z",
+      "isPublic": false,
+      "isReadOnly": false
+    },
+    {
+      "id": "Y2lzY29zcGFyazovL3VzL1JPT00vcm9vbS00",
+      "title": "Ola and Jan",
+      "type": "direct",
+      "isLocked": false,
+      "lastActivity": "2026-11-18T19:12:00.000Z",
+      "creatorId": "Y2lzY29zcGFyazovL3VzL1BFT1BMRS9vbGE",
+      "created": "2026-11-18T19:10:00.000Z",
+      "isPublic": false,
+      "isReadOnly": false
+    },
+    {
+      "id": "Y2lzY29zcGFyazovL3VzL1JPT00vcm9vbS01",
+      "title": "Cisco Technology Experience",
+      "type": "group",
+      "isLocked": false,
+      "lastActivity": "2026-11-20T08:00:00.000Z",
+      "creatorId": "Y2lzY29zcGFyazovL3VzL1BFT1BMRS9jaXNjbw",
+      "created": "2026-11-17T12:00:00.000Z",
+      "isPublic": true,
+      "isReadOnly": true
+    }
+  ]
+}

@@ -204,6 +204,36 @@ inside the loop (Lab 3).
 **How to fix it:** click into the terminal and press ++ctrl+c++. Then check that the variable in
 the `while` line changes inside the loop.
 
+## Webex returns 401 Unauthorized
+
+**What you see:** `401`, `ApiError`, or `Failed to fetch room details`.
+
+**Why:** the token is missing, expired, or still the placeholder text. Personal tokens last a few hours.
+
+**How to fix it:** copy a fresh **Personal Access Token** from
+[developer.webex.com](https://developer.webex.com/docs/getting-started) into `code/day2/token.txt`.
+One line, no quotes, no extra space. Save and run again.
+
+For Labs 6 and 7, use the **bot** token, not the personal one.
+
+## Webex returns 409 Conflict
+
+**What you see:** `409` when you add a person or a bot.
+
+**Why:** that email is already in the room.
+
+**How to fix it:** skip that email. List memberships (Lab 3, TODO 4) to see who is already there.
+
+## Flask or uvicorn cannot start
+
+**What you see:** `Address already in use`, or the browser says it cannot connect.
+
+**Why:** an old server is still running, or the terminal is in the wrong folder.
+
+**How to fix it:** click the old terminal and press ++ctrl+c++. Open **File > Open Folder...** on
+`code/day2`. Flask: `python lab6/echo_flask.py`. FastAPI:
+`python -m uvicorn lab7.echo_fastapi:app --reload --port 8000`.
+
 ## I broke my quiz.py
 
 **What you see:** your Quiz Game does not work any more and you cannot find why.
