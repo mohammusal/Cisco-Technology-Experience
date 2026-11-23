@@ -55,3 +55,7 @@
 *[FastAPI]: A Python library for building APIs, often run with uvicorn.
 *[Bruno]: A free, offline-friendly REST API client with no login required, used to test API calls before coding them in Python.
 *[HTTP]: The protocol browsers, Bruno, and Python use to send requests (GET, POST, PUT, DELETE) and receive responses over the web.
+*[endpoint]: A specific URL path on an API server that represents a resource, such as /v1/orders or /v1/rooms.
+*[header]: A key-value metadata line on an HTTP request or response, used for Content-Type and Authorization tokens.
+*[stateless]: An API design rule where the server remembers nothing between requests, so every call must carry its own auth and context.
+*[status code]: A 3-digit number returned by a server showing the outcome of a request (2xx success, 4xx client error, 5xx server error).

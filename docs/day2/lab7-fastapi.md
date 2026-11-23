@@ -118,7 +118,7 @@ The uvicorn terminal prints `Webhook reached (local test).`
     again.
 
 !!! error "Error decoder: `ModuleNotFoundError: No module named 'fastapi'`"
-    **What it means:** Lab 0's pip install did not include FastAPI in this `.venv`.
+    **What it means:** Lab 1's pip install did not include FastAPI in this `.venv`.
 
     **How to fix it:** `python -m pip install fastapi uvicorn` with `(.venv)` active.
 
@@ -168,7 +168,7 @@ second bot that only answers one person.
 
 ```mermaid
 flowchart LR
-    L0["Lab 0<br/>token"] --> L1["Lab 1<br/>JSON"] --> L2["Lab 2<br/>room"] --> L3["Lab 3<br/>members"]
+    L0["Lab 0<br/>API basics"] --> L1["Lab 1<br/>Bruno + JSON"] --> L2["Lab 2<br/>room"] --> L3["Lab 3<br/>members"]
     L3 --> L4["Lab 4<br/>PUT DELETE"] --> L5["Lab 5<br/>bot"] --> L6["Lab 6<br/>Flask"] --> L7["Lab 7<br/>FastAPI"]
     style L7 fill:#e3f4e8,stroke:#1a7f37,color:#1b242c
 ```

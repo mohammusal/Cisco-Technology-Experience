@@ -22,8 +22,8 @@ flowchart LR
 <table class="roadmap" markdown>
 <thead><tr><th>Block</th><th>Topic</th><th>Lab</th></tr></thead>
 <tbody markdown>
-<tr><td>Intro</td><td>API basics (4 verbs), first live call in Bruno, your token</td><td><a href="lab0-setup.html">Lab 0 - Token and setup</a></td></tr>
-<tr><td>REST</td><td>Break it in Bruno (200/404/401), JSON, GET rooms with <code>requests</code></td><td><a href="lab1-rest.html">Lab 1 - REST and JSON</a></td></tr>
+<tr><td>Intro (30m)</td><td>API core principles, REST design, live simulator (Present Mode)</td><td><a href="lab0-api-basics.html">Lab 0 - API core principles</a></td></tr>
+<tr><td>REST</td><td>Bruno, Webex token, status codes (200/404/401), GET rooms in Python</td><td><a href="lab1-rest.html">Lab 1 - Setup, Bruno and REST</a></td></tr>
 <tr><td>Tasks 1</td><td>Create a room, welcome message, save the details</td><td><a href="lab2-room.html">Lab 2 - Create a room</a></td></tr>
 <tr><td>Tasks 1</td><td>Add members as moderators, welcome each person</td><td><a href="lab3-members.html">Lab 3 - Add members</a></td></tr>
 <tr><td>Tasks 2</td><td>Send a message, edit it, delete it</td><td><a href="lab4-messages.html">Lab 4 - Edit and delete</a></td></tr>
@@ -46,8 +46,8 @@ flowchart LR
 
 | After lab | Your project can... |
 |---|---|
-| Lab 0 | keep a token on this laptop, never in the script |
-| Lab 1 | read JSON and list rooms |
+| Lab 0 | explain how APIs, verbs, status codes, design rules, and webhooks work |
+| Lab 1 | keep your token safe, test live calls in Bruno, read JSON and list rooms |
 | Lab 2 | create a room and post `Welcome! Your room has been created!` |
 | Lab 3 | add the group as moderators and mention each person |
 | Lab 4 | send a message, change it, then delete it |

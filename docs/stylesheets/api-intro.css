@@ -1,0 +1,890 @@
+/* Scoped styling for Day 2 Lab 0 (API Core Principles) + Present Mode.
+   Strictly prefixed with .api-intro / body.api-present-mode so other pages are untouched.
+   Zero external URLs; uses existing Material / --cx-* theme variables for light & dark modes. */
+
+.api-intro {
+  --api-ok-bg: color-mix(in srgb, var(--cx-green) 12%, transparent);
+  --api-warn-bg: color-mix(in srgb, var(--cx-amber) 14%, transparent);
+  --api-err-bg: color-mix(in srgb, var(--cx-red) 12%, transparent);
+  --api-info-bg: color-mix(in srgb, var(--cx-blue) 11%, transparent);
+  --api-card-bg: var(--cx-surface);
+  --api-code-bg: var(--md-code-bg-color);
+  --api-radius: 8px;
+}
+
+/* Top Present Mode banner (visible in normal study view, hidden in Present Mode) */
+.api-intro-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  padding: 0.85rem 1.05rem;
+  margin: 0.9rem 0 1.4rem;
+  border: 1px solid color-mix(in srgb, var(--cx-blue) 32%, var(--cx-border));
+  border-left: 4px solid var(--cx-blue);
+  border-radius: var(--api-radius);
+  background: var(--api-info-bg);
+}
+
+.api-intro-banner__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.78rem;
+  color: var(--cx-ink);
+}
+
+.api-intro-banner__meta strong {
+  font-size: 0.84rem;
+  color: var(--cx-blue-deep);
+}
+
+.api-intro-banner__keys {
+  font-size: 0.7rem;
+  color: var(--cx-muted);
+}
+
+.api-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 6px;
+  border: 1px solid var(--cx-border);
+  background: var(--md-default-bg-color, #ffffff);
+  color: var(--cx-ink);
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease, transform 80ms ease;
+}
+
+.api-btn:hover {
+  border-color: var(--cx-blue);
+  color: var(--cx-blue-deep);
+}
+
+.api-btn:active {
+  transform: translateY(1px);
+}
+
+.api-btn--primary {
+  background: var(--cx-blue);
+  border-color: var(--cx-blue);
+  color: #ffffff;
+}
+
+.api-btn--primary:hover {
+  background: var(--cx-blue-deep);
+  border-color: var(--cx-blue-deep);
+  color: #ffffff;
+}
+
+.api-btn--sm {
+  padding: 0.3rem 0.65rem;
+  font-size: 0.7rem;
+}
+
+/* Individual teaching beats (Normal Mode: clean stacked sections) */
+.api-intro .api-beat {
+  position: relative;
+  padding: 1.25rem 0 1.5rem;
+  border-top: 1px solid var(--cx-border-soft);
+}
+
+.api-intro .api-beat:first-of-type {
+  border-top: none;
+  padding-top: 0.4rem;
+}
+
+.api-beat__kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cx-blue);
+  margin-bottom: 0.25rem;
+}
+
+.api-beat__time {
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  background: var(--api-info-bg);
+  color: var(--cx-blue-deep);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.api-intro .api-beat > h2 {
+  margin-top: 0.15rem;
+}
+
+/* Compact 2-column & 3-column utility grids inside beats */
+.api-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin: 0.85rem 0;
+}
+
+.api-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 0.85rem 0;
+}
+
+.api-card {
+  padding: 0.85rem 0.95rem;
+  border: 1px solid var(--cx-border);
+  border-radius: var(--api-radius);
+  background: var(--api-card-bg);
+}
+
+.api-card h3,
+.api-card h4 {
+  margin: 0 0 0.35rem;
+  font-size: 0.85rem;
+}
+
+.api-card p {
+  margin: 0.3rem 0;
+  font-size: 0.78rem;
+}
+
+.api-pill {
+  display: inline-block;
+  padding: 0.12rem 0.48rem;
+  border-radius: 5px;
+  font-family: var(--md-code-font-family);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.api-pill--get    { background: var(--api-ok-bg);   color: var(--cx-green); }
+.api-pill--post   { background: var(--api-info-bg); color: var(--cx-blue-deep); }
+.api-pill--patch  { background: var(--api-warn-bg); color: var(--cx-amber); }
+.api-pill--delete { background: var(--api-err-bg);  color: var(--cx-red); }
+
+/* =========================================================================
+   WIDGET 1: Request / Response Anatomy Explorer (Beat 3)
+   ========================================================================= */
+.api-anatomy {
+  margin: 0.85rem 0;
+}
+
+.api-anatomy__panels {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.api-envelope {
+  border: 1px solid var(--cx-border);
+  border-radius: var(--api-radius);
+  background: var(--api-card-bg);
+  overflow: hidden;
+}
+
+.api-envelope__head {
+  padding: 0.45rem 0.8rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--cx-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.api-envelope--req .api-envelope__head {
+  background: var(--api-info-bg);
+  color: var(--cx-blue-deep);
+}
+
+.api-envelope--res .api-envelope__head {
+  background: var(--api-ok-bg);
+  color: var(--cx-green);
+}
+
+.api-envelope__body {
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  font-family: var(--md-code-font-family);
+  font-size: 0.74rem;
+}
+
+.api-envelope__line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.api-part {
+  text-align: left;
+  padding: 0.35rem 0.55rem;
+  border-radius: 6px;
+  border: 1.5px solid var(--cx-border);
+  background: var(--api-code-bg);
+  color: var(--cx-ink);
+  font-family: var(--md-code-font-family);
+  font-size: 0.72rem;
+  line-height: 1.35;
+  cursor: pointer;
+  transition: border-color 120ms ease, background-color 120ms ease, box-shadow 120ms ease;
+}
+
+.api-part:hover {
+  border-color: var(--cx-blue);
+}
+
+.api-part.is-selected {
+  border-color: var(--cx-blue);
+  background: var(--api-info-bg);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--cx-blue) 22%, transparent);
+}
+
+.api-part--block {
+  width: 100%;
+  white-space: pre-wrap;
+}
+
+.api-anatomy__detail {
+  margin-top: 0.75rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid color-mix(in srgb, var(--cx-blue) 35%, var(--cx-border));
+  border-left: 4px solid var(--cx-blue);
+  border-radius: var(--api-radius);
+  background: var(--api-card-bg);
+}
+
+.api-anatomy__detail-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.api-anatomy__badge {
+  font-size: 0.66rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.12rem 0.45rem;
+  border-radius: 4px;
+  background: var(--api-info-bg);
+  color: var(--cx-blue-deep);
+}
+
+.api-anatomy__title {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--cx-ink);
+}
+
+.api-anatomy__desc {
+  margin: 0.25rem 0;
+  font-size: 0.78rem;
+  color: var(--cx-ink);
+}
+
+.api-anatomy__pitfall {
+  margin: 0.35rem 0 0;
+  font-size: 0.73rem;
+  color: var(--cx-muted);
+}
+
+/* =========================================================================
+   WIDGET 2: Offline Live Campus Pizza API Playground (Beat 5)
+   ========================================================================= */
+.api-pg {
+  border: 1px solid var(--cx-border);
+  border-radius: var(--api-radius);
+  background: var(--api-card-bg);
+  padding: 0.85rem;
+  margin: 0.75rem 0;
+}
+
+.api-pg__presets {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  padding-bottom: 0.7rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--cx-border-soft);
+}
+
+.api-pg__presets-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--cx-muted);
+  margin-right: 0.2rem;
+}
+
+.api-pg__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 0.9rem;
+  align-items: start;
+}
+
+.api-pg__bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: stretch;
+  margin-bottom: 0.55rem;
+}
+
+.api-pg__verb {
+  padding: 0.4rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--cx-border);
+  background: var(--md-default-bg-color, #ffffff);
+  color: var(--cx-ink);
+  font-family: var(--md-code-font-family);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.api-pg__urlwrap {
+  flex: 1 1 200px;
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--cx-border);
+  border-radius: 6px;
+  background: var(--md-default-bg-color, #ffffff);
+  overflow: hidden;
+}
+
+.api-pg__host {
+  padding: 0.4rem 0.5rem;
+  font-family: var(--md-code-font-family);
+  font-size: 0.7rem;
+  color: var(--cx-muted);
+  background: var(--api-code-bg);
+  border-right: 1px solid var(--cx-border-soft);
+  white-space: nowrap;
+}
+
+.api-pg__path {
+  flex: 1 1 auto;
+  min-width: 110px;
+  padding: 0.4rem 0.55rem;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--cx-ink);
+  font-family: var(--md-code-font-family);
+  font-size: 0.75rem;
+}
+
+.api-pg__auth {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.45rem 0.6rem;
+  margin-bottom: 0.55rem;
+  border: 1px dashed var(--cx-border);
+  border-radius: 6px;
+  font-size: 0.73rem;
+}
+
+.api-pg__auth label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.api-pg__header-preview {
+  font-family: var(--md-code-font-family);
+  font-size: 0.68rem;
+  color: var(--cx-muted);
+}
+
+.api-pg__body-wrap {
+  margin-bottom: 0.6rem;
+}
+
+.api-pg__body-wrap[hidden] {
+  display: none;
+}
+
+.api-pg__label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--cx-muted);
+  margin-bottom: 0.25rem;
+}
+
+.api-pg__textarea {
+  width: 100%;
+  min-height: 76px;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--cx-border);
+  border-radius: 6px;
+  background: var(--api-code-bg);
+  color: var(--cx-ink);
+  font-family: var(--md-code-font-family);
+  font-size: 0.73rem;
+  line-height: 1.4;
+  resize: vertical;
+}
+
+.api-pg__response {
+  border: 1px solid var(--cx-border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--md-default-bg-color, #ffffff);
+}
+
+.api-pg__res-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  padding: 0.4rem 0.65rem;
+  background: var(--api-code-bg);
+  border-bottom: 1px solid var(--cx-border-soft);
+  font-size: 0.72rem;
+}
+
+.api-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.14rem 0.5rem;
+  border-radius: 999px;
+  font-family: var(--md-code-font-family);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.api-status--2xx { background: var(--api-ok-bg);   color: var(--cx-green); }
+.api-status--4xx { background: var(--api-err-bg);  color: var(--cx-red); }
+.api-status--idle { background: var(--api-info-bg); color: var(--cx-blue-deep); }
+
+.api-pg__res-body {
+  margin: 0;
+  padding: 0.6rem 0.7rem;
+  max-height: 210px;
+  overflow: auto;
+  font-family: var(--md-code-font-family);
+  font-size: 0.71rem;
+  line-height: 1.4;
+  color: var(--cx-ink);
+  background: transparent;
+}
+
+/* Live Database column */
+.api-pg__db {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.api-db-box {
+  border: 1px solid var(--cx-border);
+  border-radius: 6px;
+  background: var(--md-default-bg-color, #ffffff);
+  overflow: hidden;
+}
+
+.api-db-box__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.35rem 0.65rem;
+  background: var(--api-code-bg);
+  border-bottom: 1px solid var(--cx-border-soft);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--cx-muted);
+}
+
+.api-db-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.71rem;
+}
+
+.api-db-table th,
+.api-db-table td {
+  padding: 0.32rem 0.55rem;
+  text-align: left;
+  border-bottom: 1px solid var(--cx-border-soft);
+}
+
+.api-db-table tr:last-child td {
+  border-bottom: none;
+}
+
+.api-db-table th {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  color: var(--cx-muted);
+  font-weight: 700;
+}
+
+.api-db-row--flash {
+  background: var(--api-ok-bg);
+}
+
+/* =========================================================================
+   WIDGET 3: Good vs Bad Design Flip Cards (Beat 6)
+   ========================================================================= */
+.api-flip-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin: 0.8rem 0;
+}
+
+.api-flip {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid var(--cx-border);
+  border-radius: var(--api-radius);
+  background: var(--api-card-bg);
+  padding: 0.8rem;
+  gap: 0.55rem;
+}
+
+.api-flip__rule {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--cx-ink);
+}
+
+.api-flip__box {
+  padding: 0.55rem 0.65rem;
+  border-radius: 6px;
+  font-family: var(--md-code-font-family);
+  font-size: 0.7rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+.api-flip__box--bad {
+  background: var(--api-err-bg);
+  border: 1px solid color-mix(in srgb, var(--cx-red) 35%, transparent);
+  color: var(--cx-ink);
+}
+
+.api-flip__box--good {
+  background: var(--api-ok-bg);
+  border: 1px solid color-mix(in srgb, var(--cx-green) 35%, transparent);
+  color: var(--cx-ink);
+}
+
+.api-flip__tag {
+  display: inline-block;
+  font-family: var(--md-text-font-family);
+  font-size: 0.64rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.2rem;
+}
+
+.api-flip__box--bad .api-flip__tag  { color: var(--cx-red); }
+.api-flip__box--good .api-flip__tag { color: var(--cx-green); }
+
+.api-flip__why {
+  margin: 0;
+  font-size: 0.73rem;
+  color: var(--cx-muted);
+}
+
+.api-flip .api-flip__good-wrap {
+  display: none;
+}
+
+.api-flip.is-revealed .api-flip__good-wrap {
+  display: block;
+}
+
+/* =========================================================================
+   WIDGET 4: Code Review This Bad API Challenge (Beat 8)
+   ========================================================================= */
+.api-quiz__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.7rem;
+}
+
+.api-quiz__score {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  background: var(--api-info-bg);
+  color: var(--cx-blue-deep);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.api-quiz__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.api-qcard {
+  border: 1px solid var(--cx-border);
+  border-radius: var(--api-radius);
+  background: var(--api-card-bg);
+  padding: 0.75rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.api-qcard__title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--cx-muted);
+}
+
+.api-qcard__code {
+  margin: 0;
+  padding: 0.5rem 0.65rem;
+  border-radius: 6px;
+  background: var(--api-code-bg);
+  border-left: 3px solid var(--cx-red);
+  font-family: var(--md-code-font-family);
+  font-size: 0.71rem;
+  white-space: pre-wrap;
+  color: var(--cx-ink);
+}
+
+.api-qcard__opts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.api-qopt {
+  text-align: left;
+  padding: 0.42rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--cx-border);
+  background: var(--md-default-bg-color, #ffffff);
+  color: var(--cx-ink);
+  font-family: inherit;
+  font-size: 0.73rem;
+  cursor: pointer;
+  transition: border-color 120ms ease, background-color 120ms ease;
+}
+
+.api-qopt:hover:not(:disabled) {
+  border-color: var(--cx-blue);
+}
+
+.api-qopt.is-right {
+  border-color: var(--cx-green);
+  background: var(--api-ok-bg);
+  color: var(--cx-ink);
+  font-weight: 600;
+}
+
+.api-qopt.is-wrong {
+  border-color: var(--cx-red);
+  background: var(--api-err-bg);
+  color: var(--cx-ink);
+}
+
+.api-qcard__fb {
+  min-height: 1.1em;
+  font-size: 0.72rem;
+  color: var(--cx-muted);
+}
+
+.api-qcard__fb.is-right { color: var(--cx-green); font-weight: 600; }
+.api-qcard__fb.is-wrong { color: var(--cx-red); font-weight: 600; }
+
+/* =========================================================================
+   PRESENT MODE (Option C — activates ONLY when body.api-present-mode is set)
+   ========================================================================= */
+.api-hud {
+  display: none;
+}
+
+body.api-present-mode {
+  overflow: hidden;
+}
+
+body.api-present-mode .md-header,
+body.api-present-mode .md-tabs,
+body.api-present-mode .md-sidebar,
+body.api-present-mode .md-footer,
+body.api-present-mode .md-top,
+body.api-present-mode .progress-map,
+body.api-present-mode .api-intro-banner,
+body.api-present-mode .api-page-header,
+body.api-present-mode .admonition.instructor,
+body.api-present-mode details.instructor {
+  display: none !important;
+}
+
+body.api-present-mode .md-main,
+body.api-present-mode .md-main__inner,
+body.api-present-mode .md-content,
+body.api-present-mode .md-content__inner {
+  margin: 0 !important;
+  padding: 0 !important;
+  max-width: none !important;
+}
+
+body.api-present-mode .api-intro {
+  position: fixed;
+  inset: 0 0 3.35rem 0;
+  overflow-y: auto;
+  padding: 1.5rem 2.5rem 2rem;
+  background: var(--md-default-bg-color, #ffffff);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+body.api-present-mode .api-intro .api-beat {
+  display: none;
+  width: 100%;
+  max-width: 1180px;
+  border-top: none;
+  padding: 0.25rem 0 1rem;
+  font-size: 1.08em;
+}
+
+body.api-present-mode .api-intro .api-beat.is-active {
+  display: block;
+}
+
+body.api-present-mode .api-intro .api-beat > h2 {
+  font-size: 1.85rem;
+  margin-bottom: 0.65rem;
+}
+
+body.api-present-mode .api-hud {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3.35rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0 1.25rem;
+  background: var(--cx-navy);
+  color: #e4e9ef;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  z-index: 999;
+}
+
+.api-hud__progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 3px;
+  background: var(--cx-cyan);
+  transition: width 180ms ease;
+}
+
+.api-hud__group {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.api-hud__select {
+  padding: 0.3rem 0.55rem;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.api-hud__select option {
+  color: #1b242c;
+  background: #ffffff;
+}
+
+.api-hud__timer {
+  font-family: var(--md-code-font-family);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.22rem 0.55rem;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #7ee3ff;
+  min-width: 3.8rem;
+  text-align: center;
+}
+
+.api-hud .api-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+.api-hud .api-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: var(--cx-cyan);
+  color: #ffffff;
+}
+
+.api-hud .api-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+@media (max-width: 860px) {
+  .api-grid-2,
+  .api-grid-3,
+  .api-anatomy__panels,
+  .api-pg__grid,
+  .api-flip-grid,
+  .api-quiz__grid {
+    grid-template-columns: 1fr;
+  }
+
+  body.api-present-mode .api-intro {
+    padding: 1rem;
+  }
+}
